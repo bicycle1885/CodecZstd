@@ -70,6 +70,11 @@ function TranscodingStreams.startproc(codec::ZstdCompressor, mode::Symbol, error
         error[] = ErrorException("zstd error")
         return :error
     end
+    code = initialize!(codec.cstream, codec.level)
+    if iserror(code)
+        error[] = ErrorException("zstd error")
+        return :error
+    end
     return :ok
 end
 
